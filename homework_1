@@ -1,0 +1,73 @@
+show databases;
+
+use user313131;
+
+show tables;
+
+select *from cars;
+
+1)# знайти всі машини старші за 2000р.
+
+select * from cars where year>2000 order by year desc;
+
+2)# знайти всі машини молодші 2015р.
+
+select * from cars where year <2015 order by year asc;
+
+3)# знайти всі машини  2008, 2009, 2010 років
+
+select * from cars where year in (2008,2009,2010);
+
+4)# знайти всі машини не з цих  років 2008, 2009, 2010
+
+select * from cars where year not in (2008,2009,2010) order by year desc;
+
+5)# знайти всі машини  де year==price
+
+select *from cars where year=price;
+
+6)# знайти всі машини bmw старші за 2014р
+
+select * from cars where year>2014 and model='bmw' order by year desc;
+
+7)# знайти всі машини audi молодші 2014р
+
+select * from cars where model='audi' and year<2014 order by year asc;
+
+8)# знайти перші 5 машин
+
+select * from cars limit 5;
+
+9)# знайти останні 5 машин
+
+select *from cars limit 5 offset 212;
+
+10)# знайти середнє арифметичне цін машини KIA
+
+select avg(price) as avarage_price ,model from cars where model='KIA' group by model;
+
+11)# знайти середнє арифметичне цін для кожної марки машин окремо
+
+select avg(price) as avarage_price ,model from cars group by model;
+
+12)# підрахувати кількість кожної марки
+
+select count(model) as count_model,model from cars group by model;
+
+13)# знайти марку машин кількість яких найбільше
+
+select  count(*) as count_model,model from cars group by model order by  count_model desc limit 1;
+
+14)# знайти марку машини в назві яких друга та передостання буква "a"
+
+select * from cars where model like '_a%' and model like '%a_';
+
+15)# знайти всі машини назва моделі яких більше за 8 символів
+
+select *from cars where length(model)>8 order by year desc;
+
+16)# ***знайти машини ціна котрих більше ніж ціна середнього арифметичного всіх машин
+
+select avg(price) from cars;
+
+select (price),model from cars where price>(select avg(price) from cars) group by model, (price);
